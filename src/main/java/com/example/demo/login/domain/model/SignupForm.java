@@ -12,18 +12,20 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.Validator;
 
 import lombok.Data;
 
-@Data
+ @Data
 public class SignupForm {
-
+	@Autowired
     //必須入力、メールアドレス形式
     @NotBlank(groups = ValidGroup1.class, message = "{require_check}")
     @Email(groups = ValidGroup1.class, message = "{email_check}")
-    private String userId; // ユーザーID
-
+    private String userId;// ユーザーID
+	
     //必須入力、長さ4から100桁まで、半角英数字のみ
     @NotBlank(groups = ValidGroup1.class, message = "{require_check}")
     @Length(groups = ValidGroup1.class, message = "{length_check}")

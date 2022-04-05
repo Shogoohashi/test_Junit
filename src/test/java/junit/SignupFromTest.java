@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.matches;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.validation.constraints.Email;
@@ -29,96 +30,132 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import com.example.demo.login.domain.model.SignupForm;
+
 @SpringBootTest
 public class SignupFromTest {
 
 	@Autowired
 	Validator validator;
 
-	private SignupForm testsignupForm  = new SignupForm();
-	private BindingResult bindingResult = new BindException(testsignupForm , "UserForm");
-	
+	private SignupForm testsignupForm = new SignupForm();
+
 	@Test(expected = NullPointerException.class)
 	public void testExceptionThrown() {
-	    String str = null;
+		String str = null;
 
-	    str.contains("a");
+		str.contains("a");
 	}
-	
-	
+
+	Pattern p = Pattern.compile("^$|^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@\\[-`{-~])[!-~]*");
+	Matcher m = p.matcher("aA1!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~");
+	Matcher pass = m;
+
 	@Test
-    public void No1_ユーザID_メールアドレスチェック() {
+	public void No1_ユーザID_メールアドレスチェック() {
 		testsignupForm.setUserId("abc@gmail.com");
-		assertThat(testsignupForm.getUserId(),allOf(match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")));
-    }
-	  @Test
-	    public void No2_ユーザID_全角アルファベット() {
-		  testsignupForm.setUserId("ａbc@gmail.com");
-		  assertThat(testsignupForm.getUserId(),allOf(match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")));
-	    }
-	  
-	  
-	  @Test
-	    public void No3_ユーザID_全角数字() {
-		  testsignupForm.setUserId("１abc@gmail.com");
-		  assertThat(testsignupForm.getUserId(),allOf(match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")));
-	    }
-	  
-	  
-	  @Test
-	    public void No4_ユーザID_全角記号() {
-		  testsignupForm.setUserId("／abc@gmail.com");
-		  assertThat(testsignupForm.getUserId(),allOf(match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")));
-	    }
-	  
-	  
-	  @Test
-	    public void No5_ユーザID_半角アルファベット() {
-		  testsignupForm.setUserId("abc@gmail.com");
-		  assertThat(testsignupForm.getUserId(),allOf(match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")));
-	    }
-	 
-	  
-	  @Test
-	    public void No6_ユーザID_半角数字() {
-		  testsignupForm.setUserId("1abc@gmail.com");
-		  assertThat(testsignupForm.getUserId(),allOf(match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")));
-	    }
-	  
-	  
-	  @Test
-	    public void No7_ユーザID_半角記号() {
-		  testsignupForm.setUserId("/abc@gmail.com");
-		  assertThat(testsignupForm.getUserId(),allOf(match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")));
-	    }
-	  //No8半角かなは半角かな自体が存在しないためテストは飛ばします。
-	  
-	  
-	  @Test
-	    public void No9＿ユーザID_半角カナ() {
-		  testsignupForm.setUserId("ｶﾅabc@gmail.com");
-	      assertThat(testsignupForm.getUserId().contains("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
-	      
-	  }
-	  
-	  @Test
-	    public void No10＿ユーザID_半角かな() {
-		  testsignupForm.setUserId("かなabc@gmail.com");
-	      assertThat(testsignupForm.getUserId().contains("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
-	      
-	  }
-	  @Test
-	    public void No11＿ユーザID_全角カナ() {
-		  testsignupForm.setUserId("カナabc@gmail.com");
-	      assertThat(testsignupForm.getUserId().contains("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+		assertThat(testsignupForm.getUserId()
+				.contains("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+	}
 
-	  }
-	  
-	  @Test
-	    public void No12＿ユーザID_漢字() {
-		  testsignupForm.setUserId("仮名abc@gmail.com");
-	      assertThat(testsignupForm.getUserId().contains("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+	@Test
+	public void No2_ユーザID_全角アルファベット() {
+		testsignupForm.setUserId("ａbc@gmail.com");
+		assertThat(testsignupForm.getUserId()
+				.contains("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+	}
 
-	  }
-}	  
+	@Test
+	public void No3_ユーザID_全角数字() {
+		testsignupForm.setUserId("１abc@gmail.com");
+		assertThat(testsignupForm.getUserId()
+				.contains("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+	}
 
+	@Test
+	public void No4_ユーザID_全角記号() {
+		testsignupForm.setUserId("／abc@gmail.com");
+		assertThat(testsignupForm.getUserId()
+				.contains("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+	}
+
+	@Test
+	public void No5_ユーザID_半角アルファベット() {
+		testsignupForm.setUserId("abc@gmail.com");
+		assertThat(testsignupForm.getUserId()
+				.contains("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+	}
+
+	@Test
+	public void No6_ユーザID_半角数字() {
+		testsignupForm.setUserId("1abc@gmail.com");
+		assertThat(testsignupForm.getUserId()
+				.contains("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+	}
+
+	@Test
+	public void No7_ユーザID_半角記号() {
+		testsignupForm.setUserId("/abc@gmail.com");
+		assertThat(testsignupForm.getUserId()
+				.contains("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+	}
+	// No8半角かなは半角かな自体が存在しないためテストは飛ばします。
+
+	@Test
+	public void No9＿ユーザID_半角カナ() {
+		testsignupForm.setUserId("ｶﾅabc@gmail.com");
+		assertThat(testsignupForm.getUserId()
+				.contains("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+
+	}
+
+	@Test
+	public void No10＿ユーザID_全角かな() {
+		testsignupForm.setUserId("かなabc@gmail.com");
+		assertThat(testsignupForm.getUserId()
+				.contains("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+
+	}
+
+	@Test
+	public void No11＿ユーザID_全角カナ() {
+		testsignupForm.setUserId("カナabc@gmail.com");
+		assertThat(testsignupForm.getUserId()
+				.contains("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+
+	}
+
+	@Test
+	public void No12＿ユーザID_漢字() {
+		testsignupForm.setUserId("仮名abc@gmail.com");
+		assertThat(testsignupForm.getUserId()
+				.contains("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"));
+
+	}
+
+	public void No13＿パスワード_半角アルファベット() {
+		  testsignupForm.setPassword("aaaaaaaAAAAA");
+		  assertThat(testsignupForm.getPassword().matches("?=.** \d)(?=.** [a-z])(?=.** [A-Z])(?=.** [@#$%]");
+		  
+	  }
+
+	public void No14＿パスワード_半角数字() {
+		  testsignupForm.setPassword("111111aaaaaaa");
+		  assertThat(testsignupForm.getPassword().matches("?=.** \d)(?=.** [a-z])(?=.** [A-Z])(?=.** [@#$%]");
+		  
+	}
+		  
+		  //No15の半角かなはそもそもない
+
+		  
+	public void No16＿パスワード_半角かな() {
+		  testsignupForm.setPassword("ｶﾅaaaaaaa");
+		  assertThat(testsignupForm.getPassword().matches("?=.** \d)(?=.** [a-z])(?=.** [A-Z])(?=.** [@#$%]");
+}
+	
+
+	public void No17＿パスワード_全角アルファベット() {
+		  testsignupForm.setPassword("ａａａａaaaaaa");
+		  assertThat(testsignupForm.getPassword().matches("?=.** \d)(?=.** [a-z])(?=.** [A-Z])(?=.** [@#$%]");
+　}
+	
+}

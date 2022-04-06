@@ -132,30 +132,86 @@ public class SignupFromTest {
 
 	}
 
+	@Test
 	public void No13＿パスワード_半角アルファベット() {
-		  testsignupForm.setPassword("aaaaaaaAAAAA");
-		  assertThat(testsignupForm.getPassword().matches("?=.** \d)(?=.** [a-z])(?=.** [A-Z])(?=.** [@#$%]");
-		  
-	  }
+		testsignupForm.setPassword("aaaaaaaAAAAA");
+		assertThat(testsignupForm.getPassword().matches("[0-9a-z.?/-]{8,20}"));
 
-	public void No14＿パスワード_半角数字() {
-		  testsignupForm.setPassword("111111aaaaaaa");
-		  assertThat(testsignupForm.getPassword().matches("?=.** \d)(?=.** [a-z])(?=.** [A-Z])(?=.** [@#$%]");
-		  
 	}
-		  
-		  //No15の半角かなはそもそもない
 
-		  
+	@Test
+	public void No14＿パスワード_半角数字() {
+		testsignupForm.setPassword("111111aaaaaaa");
+		assertThat(testsignupForm.getPassword().matches("[0-9a-z.?/-]{8,20}"));
+
+	}
+
+	// No15の半角かなはそもそもない
+
+	@Test
 	public void No16＿パスワード_半角かな() {
-		  testsignupForm.setPassword("ｶﾅaaaaaaa");
-		  assertThat(testsignupForm.getPassword().matches("?=.** \d)(?=.** [a-z])(?=.** [A-Z])(?=.** [@#$%]");
-}
-	
+		testsignupForm.setPassword("ｶﾅaaaaaaa");
+		assertThat(testsignupForm.getPassword().matches("[0-9a-z.?/-]{8,20}"));
+	}
 
+	@Test
 	public void No17＿パスワード_全角アルファベット() {
-		  testsignupForm.setPassword("ａａａａaaaaaa");
-		  assertThat(testsignupForm.getPassword().matches("?=.** \d)(?=.** [a-z])(?=.** [A-Z])(?=.** [@#$%]");
-　}
-	
+		testsignupForm.setPassword("ａａａａaaaaaa");
+		assertThat(testsignupForm.getPassword().matches("[0-9a-z.?/-]{8,20}"));
+	}
+
+	@Test
+	public void No18＿パスワード_全角数字() {
+		testsignupForm.setPassword("１１１１１aaaaaa");
+		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
+	}
+
+	@Test
+	public void No19＿パスワード_全角かな() {
+		testsignupForm.setPassword("かなaaaaaa");
+		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
+	}
+
+	@Test
+	public void No20＿パスワード_全角カナ() {
+		testsignupForm.setPassword("カナaaaaaa");
+		assertThat(testsignupForm.getPassword().matches("[0-9a-z.?/-]{8,20}"));
+	}
+
+	@Test
+	public void No21＿パスワード_文字制限21字() {
+		testsignupForm.setPassword("aaaaaaaaaaaaaaaaaaaaa");
+		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
+	}
+
+	@Test
+	public void No22＿パスワード_文字制限20字() {
+		testsignupForm.setPassword("aaaaaaaaaaaaaaaaaaaa");
+		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
+	}
+
+	@Test
+	public void No23＿パスワード_文字制限19字() {
+		testsignupForm.setPassword("aaaaaaaaaaaaaaaaaaa");
+		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
+	}
+
+	@Test
+	public void No24＿パスワード_文字制限9字() {
+		testsignupForm.setPassword("aaaaaaaaa");
+		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
+	}
+
+	@Test
+	public void No25＿パスワード_文字制限8字() {
+		testsignupForm.setPassword("aaaaaaaa");
+		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
+	}
+
+	@Test
+	public void No26＿パスワード_文字制限7字() {
+		testsignupForm.setPassword("aaaaaaa");
+		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
+	}
+
 }

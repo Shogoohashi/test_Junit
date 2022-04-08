@@ -2,10 +2,12 @@ package junit;
 
 import static org.junit.Assert.*;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.junit.rules.TemporaryFolder;
+import org.junit.rules.TestName;
 
 import static org.assertj.core.api.Assertions.allOf;
 import static org.assertj.core.api.Assertions.anyOf;
@@ -17,11 +19,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.matches;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.validation.constraints.Email;
 
+import org.springframework.aop.support.MethodMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -36,15 +43,9 @@ public class SignupFromTest {
 
 	@Autowired
 	Validator validator;
-
+	
 	private SignupForm testsignupForm = new SignupForm();
 
-	@Test(expected = NullPointerException.class)
-	public void testExceptionThrown() {
-		String str = null;
-
-		str.contains("a");
-	}
 
 	Pattern p = Pattern.compile("^$|^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@\\[-`{-~])[!-~]*");
 	Matcher m = p.matcher("aA1!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~");
@@ -213,5 +214,120 @@ public class SignupFromTest {
 		testsignupForm.setPassword("aaaaaaa");
 		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
 	}
-
+	
+	
+	@Test
+	public void No27＿誕生日_年月日() throws ParseException {
+		testsignupForm.setBirthday  = new TestName();
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		LocalDate TestName = LocalDate.of(2019, 8, 10);
+		LocalDate TestBirthday = LocalDate.of(2019, 8, 10);
+		assertThat(TestName.isEqual(TestBirthday));		
+		
+	}
+	
+	
+	@Test
+	public void No28＿誕生日_半角数字() throws ParseException {
+		testsignupForm.setBirthday  = new TestName();
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		LocalDate TestName = LocalDate.of(2019,8,10);
+		LocalDate TestBirthday = LocalDate.of(2019, 8, 10);
+		assertThat(TestName.isEqual(TestBirthday));		
+		
+	}
+	
+	
+	@Test
+	public void No29＿誕生日_全角アルファベット() throws Error {
+		testsignupForm.setBirthday  = new TestName();
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		LocalDate TestName = LocalDate.of(2019, 8, 10);
+		LocalDate TestBirthday = LocalDate.of(2011, 8, 10);
+		assertThat(TestName.isEqual(TestBirthday));		
+		
+	}
+	
+	
+//No30半角かなはそもそもない
+	
+	
+	
+	@Test
+	public void No31＿誕生日_半角ｶﾅ() throws java.lang.Error{
+		testsignupForm.setBirthday  = new TestName();
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		LocalDate TestName = LocalDate.of(2019, 8, 10);
+		LocalDate TestBirthday = LocalDate.of(2011, 8, 10);
+		assertThat(TestName.isEqual(TestBirthday));		
+		
+	}
+	
+	
+	@Test
+	public void No32＿誕生日_半角アルファベット() throws Error  {
+		testsignupForm.setBirthday  = new TestName();
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		LocalDate TestName = LocalDate.of(2019, 8, 10);
+		LocalDate TestBirthday = LocalDate.of(2011, 8, 10);
+		assertThat(TestName.isEqual(TestBirthday));		
+		
+	}
+	
+	
+	@Test
+	public void No33＿誕生日_全角数字() throws Error  {
+		testsignupForm.setBirthday  = new TestName();
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		LocalDate TestName = LocalDate.of(2019, 8, 10);
+		LocalDate TestBirthday = LocalDate.of(２０３３, 8, 10);
+		assertThat(TestName.isEqual(TestBirthday));		
+		
+	}
+	
+	
+	@Test
+	public void No34＿誕生日_全角記号() throws Error  {
+		testsignupForm.setBirthday  = new TestName();
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		LocalDate TestName = LocalDate.of(2019, 8, 10);
+		LocalDate TestBirthday = LocalDate.of(2019,8,6);
+		assertThat(TestName.isEqual(TestBirthday));		
+		
+	}
+	
+	
+	@Test
+	public void No35＿誕生日_全角かな() throws Error  {
+		testsignupForm.setBirthday  = new TestName();
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		LocalDate TestName = LocalDate.of(2019, 8, 10);
+		LocalDate TestBirthday = LocalDate.of(2019, 8, 10);
+		assertThat(TestName.isEqual(TestBirthday));		
+		
+	}
+	
+	
+	@Test
+	public void No36＿誕生日_全角カナ() throws Error  {
+		testsignupForm.setBirthday  = new TestName();
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		LocalDate TestName = LocalDate.of(2019, 8, 10);
+		LocalDate TestBirthday = LocalDate.of(2019, 8, 10);
+		assertThat(TestName.isEqual(TestBirthday));		
+		
+	}
+	
+	
+	@Test
+	public void No37＿誕生日_全角アルファベット() throws Error  {
+		testsignupForm.setBirthday  = new TestName();
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		LocalDate TestName = LocalDate.of(2019, 8, 10);
+		LocalDate TestBirthday = LocalDate.of(20, 8, 10);
+		assertThat(TestName.isEqual(TestBirthday));		
+		
+	}
+	
+	
 }

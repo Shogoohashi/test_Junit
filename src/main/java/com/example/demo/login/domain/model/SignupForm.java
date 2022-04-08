@@ -50,6 +50,8 @@ public class SignupForm {
     //falseのみ可能
     @AssertFalse(groups = ValidGroup1.class, message = "{false_check}")
     private boolean marriage; // 結婚ステータス
+
+	public Object setBirthday;
     
     public void setUserId(String userid) {
         this.userId = userid;

@@ -27,7 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.validation.constraints.Email;
-
+import static org.hamcrest.Matchers.*;
 import org.springframework.aop.support.MethodMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -214,9 +214,6 @@ public class SignupFromTest {
 		testsignupForm.setPassword("aaaaaaa");
 		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
 	}
-	
-	
-	@Test
 	public void No27＿誕生日_年月日() throws ParseException {
 		testsignupForm.setBirthday  = new TestName();
 //		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
@@ -327,6 +324,37 @@ public class SignupFromTest {
 		LocalDate TestBirthday = LocalDate.of(20, 8, 10);
 		assertThat(TestName.isEqual(TestBirthday));		
 		
+	}
+	@Test
+	public void No38＿年齢＿半角数字() {
+		testsignupForm.setAge(20);
+		assertThat(testsignupForm.getAge(), is(greaterThanOrEqualTo(20)));
+	}
+	
+	@Test
+	public void No39＿年齢＿全角数字() {
+		testsignupForm.setAge(20);
+		assertThat(testsignupForm.getAge(), is(greaterThanOrEqualTo(２０)));
+	}
+	
+	
+	@Test
+	public void No40＿年齢＿21歳以上() {
+		testsignupForm.setAge(21);
+		assertThat(testsignupForm.getAge(), is(greaterThanOrEqualTo(20)));
+	}
+	
+	
+	@Test
+	public void No41＿年齢＿20歳以上() {
+		testsignupForm.setAge(20);
+		assertThat(testsignupForm.getAge(), is(lessThanOrEqualTo(20)));
+	}
+	
+	@Test
+	public void No42＿年齢＿19歳以下() {
+		testsignupForm.setAge(19);
+		assertThat(testsignupForm.getAge(), is(lessThanOrEqualTo(20)));
 	}
 	
 	

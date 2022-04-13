@@ -15,8 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+
 import static org.mockito.ArgumentMatchers.matches;
 
 import java.text.ParseException;
@@ -45,6 +44,7 @@ public class SignupFromTest {
 	Validator validator;
 	
 	private SignupForm testsignupForm = new SignupForm();
+	private BindingResult bindingResult = new BindException(testsignupForm, "echoForm");
 
 
 	Pattern p = Pattern.compile("^$|^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@\\[-`{-~])[!-~]*");
@@ -357,5 +357,33 @@ public class SignupFromTest {
 		assertThat(testsignupForm.getAge(), is(lessThanOrEqualTo(20)));
 	}
 	
+	@Test
+	public void No43＿結婚＿未婚() {
+		SignupForm testmarriage = new SignupForm();
+		testmarriage.setMarriage(false);
+		System.out.println(testmarriage);
+		
+		
+//		assertTrue(testsignupForm.isMarriage(), is(lessThanOrEqualTo(20)));
+	}
 	
+	@Test
+	public void No44＿結婚＿既婚() {
+		SignupForm testmarriage = new SignupForm();
+		testmarriage.setMarriage(true);
+		System.out.println(testmarriage);
+		
+	}
+	
+	//
+	//異常系テスト
+	//
+//	@Test(expected = NullPointerException.class)
+	@Test
+	 public void No1_異常系_ユーザID(String s) {
+		 testsignupForm.setUserId("aaaaaaa"); 
+		 validator.validate(testsignupForm, bindingResult);
+		 assertThat(bindingResult.getFieldError().toString()).contains("メールアドレスではありません");
+	        
+	 }
 }

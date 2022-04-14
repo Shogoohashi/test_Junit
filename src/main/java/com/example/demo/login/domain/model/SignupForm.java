@@ -12,6 +12,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.junit.rules.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.Validator;
@@ -24,12 +25,14 @@ public class SignupForm {
     //必須入力、メールアドレス形式
     @NotBlank(groups = ValidGroup1.class, message = "{require_check}")
     @Email(groups = ValidGroup1.class, message = "{email_check}")
+	@Pattern(regexp = "[a-zA-Z0-9]*")
     private String userId;// ユーザーID
 	
     //必須入力、長さ4から100桁まで、半角英数字のみ
     @NotBlank(groups = ValidGroup1.class, message = "{require_check}")
     @Length(groups = ValidGroup1.class, message = "{length_check}")
-    @Size(groups = ValidGroup1.class,min = 8,max = 20,message = "{size_check}")
+    @Size(groups = ValidGroup1.class,message = "{size_check}")
+    @Size(min = 8,max = 20)
     @Pattern(regexp = "^[a-zA-Z0-9]+$", groups = ValidGroup1.class, message = "{pattern_check}")
     private String password; // パスワード
 
@@ -51,12 +54,22 @@ public class SignupForm {
     @AssertFalse(groups = ValidGroup1.class, message = "{false_check}")
     private boolean marriage; // 結婚ステータス
 
-	public Object setBirthday;
+	public TestName setBirthday;
     
-    public void setUserId(String userid) {
-        this.userId = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
+
     public String getUserId() {
         return userId;
     }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return password;
+    }
+    
 }

@@ -375,15 +375,4 @@ public class SignupFromTest {
 		
 	}
 	
-	//
-	//異常系テスト
-	//
-//	@Test(expected = NullPointerException.class)
-	@Test
-	 public void No1_異常系_ユーザID(String s) {
-		 testsignupForm.setUserId("aaaaaaa"); 
-		 validator.validate(testsignupForm, bindingResult);
-		 assertThat(bindingResult.getFieldError().toString()).contains("メールアドレスではありません");
-	        
-	 }
 }

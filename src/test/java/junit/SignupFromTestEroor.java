@@ -44,12 +44,27 @@ public class SignupFromTestEroor {
 		 assertThat(bindingResult.getFieldError().getField(),is("userId"));
 		 assertThat(bindingResult.getFieldError().getDefaultMessage(),is("メールアドレスではありません"));
 	 }
-}
-//	
-//	@Test
-//    public void No2＿異常系＿パスワード() {
-//        testsignupForm.setPassword("aaaa");
+	
+	@Test(expected = NullPointerException.class)
+    public void No2＿異常系＿上限値21以上() {
+		testsignupForm.setPassword(null);
+		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
+	}
+	
+	@Test(expected = NullPointerException.class)
+    public void No3＿異常系＿下限値7文字以下() {
+		testsignupForm.setPassword(null);
+		assertThat(testsignupForm.getPassword().matches("^[0-9a-z.?/-]{8,20}"));
+	}
+	
+	@Test(expected = NullPointerException.class)
+    public void No４＿異常系＿未入力() {
+		testsignupForm.setPassword(null);
+		assertThat(testsignupForm.getPassword().equals("^[0-9a-z.?/-]{8,20}"));
+	}
+        
 //        validator.validate(testsignupForm, bindingResult);
 //        assertThat(bindingResult.getFieldError().toString()).contains("8文字以上でパスワード登録ができます");
-//    }
+    
+}
 //}

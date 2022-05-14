@@ -172,7 +172,7 @@ public class PasswordTest {
     }
 	@Test
 	public void No27＿パスワード_半角数字_半角アルファベット() {
-		this.SignupForm.setPassword("1111a aaaaa");
+		this.SignupForm.setPassword("1111aaaaaa");
 		assertThat(SignupForm.getPassword().matches("/s^[0-9a-z.?/-]/s{8,20}"));
     }
 	@Test

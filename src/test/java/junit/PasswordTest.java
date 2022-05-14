@@ -87,7 +87,7 @@ public class PasswordTest {
 		assertThat(SignupForm.getPassword().matches("/s^[0-9a-z.?/-]/s{8,20}"));
     }
 	@Test
-	public void No11＿パスワード_半角数字＿半角ひら() {
+	public void No11＿パスワード_半角数字＿全角ひら() {
 		this.SignupForm.setPassword("あああ1111");
 		assertThat(SignupForm.getPassword().matches("/s^[0-9a-z.?/-]/s{8,20}"));
     }
@@ -142,7 +142,7 @@ public class PasswordTest {
     }
 	@Test
 	public void No21＿パスワード_半角アルファベット_全角アルファベット() {
-		this.SignupForm.setPassword("ａａａａaaaaa");
+		this.SignupForm.setPassword("ａａａａａａａaaaaa");
 		assertThat(SignupForm.getPassword().matches("/s^[0-9a-z.?/-]/s{8,20}"));
     }
 	@Test

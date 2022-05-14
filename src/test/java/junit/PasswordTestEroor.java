@@ -24,7 +24,7 @@ public class PasswordTestEroor {
 
 	@Test(expected = NullPointerException.class)
 	public void No1_異常系_全角ひら() {
-		this.testsignupForm.setPassword("aaaaaaaaaaaaa");
+		this.testsignupForm.setPassword("あああああああああああああああ");
 		validator.validate(testsignupForm, bindingResult);
 		assertThat(testsignupForm.getPassword().matches("/s^[0-9a-z.?/-]/s{8,20}"));
 		assertThat(bindingResult.getFieldError().getDefaultMessage(), is("半角アルファベットと半角数字のみ登録が可能です"));
@@ -172,14 +172,14 @@ public class PasswordTestEroor {
 	}
 	@Test(expected = NullPointerException.class)
 	public void No22_異常系_半角アルファベット_全角記号() {
-		this.testsignupForm.setPassword("");
+		this.testsignupForm.setPassword("aaaaaaaa／／／／／／");
 		validator.validate(testsignupForm, bindingResult);
 		assertThat(testsignupForm.getPassword().matches("/s^[0-9a-z.?/-]/s{8,20}"));
 		assertThat(bindingResult.getFieldError().getDefaultMessage(), is("半角アルファベットと半角数字のみ登録が可能です"));
 	}
 	@Test(expected = NullPointerException.class)
 	public void No23_異常系_半角アルファベット_全角数字() {
-		this.testsignupForm.setPassword("／／／aaaaaa／／／aaaaaa");
+		this.testsignupForm.setPassword("１１１１１１aaaaaa１１１１１１aaaaaa");
 		validator.validate(testsignupForm, bindingResult);
 		assertThat(testsignupForm.getPassword().matches("/s^[0-9a-z.?/-]/s{8,20}"));
 		assertThat(bindingResult.getFieldError().getDefaultMessage(), is("半角アルファベットと半角数字のみ登録が可能です"));

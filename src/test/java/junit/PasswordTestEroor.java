@@ -130,7 +130,7 @@ public class PasswordTestEroor {
 	}
 	@Test(expected = NullPointerException.class)
 	public void No16_異常系_半角数字_半角カナ() {
-		this.testsignupForm.setPassword("アアア111アアア111アアア111");
+		this.testsignupForm.setPassword("ｱｱｱｱ111ｱｱｱ111ｱｱｱｱ111");
 		validator.validate(testsignupForm, bindingResult);
 		assertThat(testsignupForm.getPassword().matches("/s^[0-9a-z.?/-]/s{8,20}"));
 		assertThat(bindingResult.getFieldError().getDefaultMessage(), is("半角アルファベットと半角数字のみ登録が可能です"));

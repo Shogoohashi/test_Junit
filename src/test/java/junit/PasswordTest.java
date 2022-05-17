@@ -71,7 +71,7 @@ public class PasswordTest {
 	
 	@Test
 	public void No8＿パスワード_半角カナ() {
-		this.SignupForm.setPassword("アアアアアアアアアアアアア");
+		this.SignupForm.setPassword("ｱｱｱｱｱｱ");
 		assertThat(SignupForm.getPassword().matches("/s^[0-9a-z.?/-]/s{8,20}"));
     }
 	

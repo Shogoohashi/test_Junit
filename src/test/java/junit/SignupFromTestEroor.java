@@ -4,14 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.contains;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import com.example.demo.login.domain.model.SignupForm;
-import com.example.demo.login.domain.model.User;
 
 public class SignupFromTestEroor {
 

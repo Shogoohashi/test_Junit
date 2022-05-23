@@ -3,6 +3,7 @@ package com.example.demo.login.domain.model;
 import java.util.Date;
 
 import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.ScriptAssert;
 import org.junit.rules.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,11 +32,10 @@ public class SignupForm {
 	
     //必須入力、長さ4から100桁まで、半角英数字のみ
     @NotBlank(groups = ValidGroup1.class, message = "{require_check}")
-    @Length(groups = ValidGroup1.class, message = "{length_check}")
-    @Size(groups = ValidGroup1.class,message = "{size_check}")
-    @Size(min = 8,max = 20)
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", groups = ValidGroup1.class, message = "{pattern_check}")
-    private String password; // パスワード
+    @Length(min = 8,max = 20,groups = ValidGroup1.class, message = "{length_check}")
+    @Size(min = 8,max = 20,groups = ValidGroup1.class,message = "{size_check}")
+    @Pattern(regexp = "^[a-z0-9]+$", groups = ValidGroup1.class, message = "{pattern_check}")    
+	public String password; // パスワード
 
     //必須入力
     @NotBlank(groups = ValidGroup1.class, message = "{require_check}")
@@ -56,20 +57,13 @@ public class SignupForm {
 
 	public TestName setBirthday;
     
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public String getPassword() {
+    	return password;
+    	
     }
-
-    public String getUserId() {
-        return userId;
-    }
-    
     public void setPassword(String password) {
-        this.password = password;
+       this.password = password;
     }
 
-    public String getName() {
-        return password;
-    }
     
 }
